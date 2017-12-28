@@ -41,7 +41,7 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_2.11</artifactId>
-            <version>1.3.1</version>
+            <version>1.3.2</version>
             <!-- uncomment this when running the job on a flink server -->
             <!--<scope>provided</scope>-->
         </dependency>
@@ -61,6 +61,27 @@
             <version>1.3.2</version>
         </dependency>
 
+        <!-- Table API -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table_2.11</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- scala stream -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-scala_2.11</artifactId>
+            <version>1.3.2</version>
+
+        </dependency>
+        <!-- scala batch -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-scala_2.11</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
 
 
         <!-- test -->
@@ -71,5 +92,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>eu.waldonia.labs.flinkball.ResultFileConsumer</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

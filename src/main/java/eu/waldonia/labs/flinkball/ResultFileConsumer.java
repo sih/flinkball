@@ -1,20 +1,20 @@
 package eu.waldonia.labs.flinkball;
 
+import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.api.common.functions.MapFunction;
+
 /**
  * @author sih
  */
 public class ResultFileConsumer {
 
-    private static final String OUTPUT_FILE_PATH = "../teleprinter/output/results.csv";
+    private static final String OUTPUT_FILE_PATH = "/Users/sid/dev/teleprinter/output/results.csv";
 
     public void readFileResults() throws Exception {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        DataSet<FootyResult> resultsFile =
-                env
+        DataSet<FootyResult> resultsFile = env
                 .readTextFile(OUTPUT_FILE_PATH)
                 .map(new MapFunction<String,FootyResult>() {
                     //Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,
@@ -40,10 +40,13 @@ public class ResultFileConsumer {
                                 fullTimeAwayTeamGoals,
                                 fullTimeResult);
                     }
+                    })
+                ;
 
-        });
-        resultsFile.print();
-        env.execute("Results File");
+        DataSet<FootyResult> hammers = resultsFile
+                .filter(fr -> fr.getHomeTeam().startsWith("West Ham") || fr.getAwayTeam().startsWith("West Ham"));
+
+        hammers.print();
 
     }
 
