@@ -151,4 +151,13 @@ public class FootyResult {
         this.fullTimeResult = fullTimeResult;
     }
 
+    public int year() {
+        return Integer.valueOf(date.split("-")[0]);
+    }
+
+    public int month() {
+        return Integer.valueOf(date.split("-")[1]);
+    }
+
+
 }
