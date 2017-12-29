@@ -28,12 +28,37 @@ public class FootyResult {
                        int fullTimeAwayGoals,
                        String fullTimeResult) {
         this.division = division;
-        this.date = date;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.fullTimeHomeGoals = fullTimeHomeGoals;
         this.fullTimeAwayGoals = fullTimeAwayGoals;
         this.fullTimeResult = fullTimeResult;
+
+        /*
+            The date format is a little bit dirty in that it can be dd/MM/yy or dd/MM/yyyy
+            Could do this formatting via JodaTime and use the withPivotYear to account for Prem League
+            years in the 90s but given:
+                i) JodaTime isn't in the Flink distro so would have to be added to the cluster;
+                ii) Doing this with Java DateTime would be a pain;
+                iii) The data is easily tokenizable
+            it's better to just parse the date.
+          */
+
+        String[] dateParts = date.split("/");
+        String dd = dateParts[0];
+        String MM = dateParts[1];
+        String year = dateParts[2];
+
+        if (year.length() < 4) {
+            if (Integer.valueOf(year) < 99 && Integer.valueOf(year) > 93) {
+                year = "19" + year;
+            } else {
+                year = "20"+year;
+            }
+        }
+
+        this.date = year+"-"+MM+"-"+dd;
+
     }
 
 
@@ -125,4 +150,5 @@ public class FootyResult {
     public void setFullTimeResult(String fullTimeResult) {
         this.fullTimeResult = fullTimeResult;
     }
+
 }

@@ -7,14 +7,21 @@ import org.apache.flink.api.java.ExecutionEnvironment;
 /**
  * @author sih
  */
-public class ResultFileConsumer {
+public class ResultFileNormalizer {
 
     private static final String OUTPUT_FILE_PATH = "/Users/sid/dev/teleprinter/output/results.csv";
 
-    public void readFileResults() throws Exception {
+    /**
+     * This takes the input files (which vary in format over the years) and creates a single, normalized format that
+     * represents the 'lowest common denominator', i.e. the common fields that all files share. This is essentially the
+     * data in the (base) FootyResult class.
+     *
+     * @throws Exception
+     */
+    public DataSet<FootyResult> normalize() throws Exception {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        DataSet<FootyResult> resultsFile = env
+        DataSet<FootyResult> normalizedResults = env
                 .readTextFile(OUTPUT_FILE_PATH)
                 .map(new MapFunction<String,FootyResult>() {
                     //Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,
@@ -43,16 +50,13 @@ public class ResultFileConsumer {
                     })
                 ;
 
-        DataSet<FootyResult> hammers = resultsFile
-                .filter(fr -> fr.getHomeTeam().startsWith("West Ham") || fr.getAwayTeam().startsWith("West Ham"));
-
-        hammers.print();
+        return normalizedResults;
 
     }
 
     public static void main(String[] args) throws Exception {
-        ResultFileConsumer consumer = new ResultFileConsumer();
-        consumer.readFileResults();
+        ResultFileNormalizer consumer = new ResultFileNormalizer();
+        consumer.normalize();
     }
 
 
