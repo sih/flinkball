@@ -6,6 +6,37 @@ This uses the [Teleprinter project on this repo](https://github.com/sih/teleprin
 ## Running the consumers
 See above for the dependency on the Teleprinter project. Most of the examples in this demo rely on the full set of results being created. Read the teleprinter project to find out how to do this.
 
+## What's implemented
+### FootyResult
+This is a normalized result object that holds the common fields from all of the data files.
+
+### ResultFileNormalizer
+This takes the data from the individual results files and creates a normalized output that contains the fields common to all of them.
+
+### TeamSelecterConsumer
+Takes an input from the command line of a team name, e.g. West Ham, and then returns the results for that team.
+
+### GoalsByMonth
+Outputs a tuple of month and the goals scored in that month, i.e.
+````
+(3,6406)
+(1,4752)
+(5,2521)
+(11,6113)
+(12,7487)
+(2,5461)
+(4,7264)
+(8,5338)
+(9,6136)
+(10,6099)
+```` 
+
+### FootyTableSourceConsumer
+Uses the TableAPI to create and query datasets. At present this only works via the IDE rather than executing on the cluster as the TableAPI is not shipped with the binary distro.
+
+### ResultSocketConsumer
+Only partly implemented.
+
 ## To Do
 - Basic stats on a team
 - Date-based stats, e.g.
