@@ -105,7 +105,9 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.waldonia.labs.flinkball.TeamSelecterConsumer</mainClass>
+                            <mainClass>eu.waldonia.labs.flinkball.GoalsByMonthByGame</mainClass>
+                            <!--<mainClass>eu.waldonia.labs.flinkball.GoalsByMonth</mainClass>-->
+                            <!--<mainClass>eu.waldonia.labs.flinkball.TeamSelecterConsumer</mainClass>-->
                             <!--<mainClass>eu.waldonia.labs.flinkball.FootyTableSourceConsumer</mainClass>-->
                         </manifest>
                     </archive>

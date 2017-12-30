@@ -17,10 +17,6 @@ public class FootyResult {
     private int fullTimeAwayGoals;
     private String fullTimeResult;
 
-    public FootyResult() {
-
-    }
-
     public FootyResult(String division,
                        String date,
                        String homeTeam,
@@ -62,6 +58,13 @@ public class FootyResult {
 
     }
 
+    public int year() {
+        return Integer.valueOf(date.split("-")[0]);
+    }
+
+    public int month() {
+        return Integer.valueOf(date.split("-")[1]);
+    }
 
     @Override
     public String toString() {
@@ -152,13 +155,6 @@ public class FootyResult {
         this.fullTimeResult = fullTimeResult;
     }
 
-    public int year() {
-        return Integer.valueOf(date.split("-")[0]);
-    }
-
-    public int month() {
-        return Integer.valueOf(date.split("-")[1]);
-    }
 
 
 }
