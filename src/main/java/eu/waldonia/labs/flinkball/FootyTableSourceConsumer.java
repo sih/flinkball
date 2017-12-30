@@ -11,6 +11,7 @@ import org.apache.flink.table.sources.CsvTableSource;
 import org.apache.flink.table.sources.TableSource;
 
 /**
+ * Shows use of the TableAPI (incomplete)
  * @author sih
  */
 public class FootyTableSourceConsumer {

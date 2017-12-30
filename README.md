@@ -31,18 +31,19 @@ Outputs a tuple of month and the goals scored in that month, i.e.
 (10,6099)
 ```` 
 
+### GoalsByMonthByGame
+Refinement of the above to take in to account the number of games per month and hence work out the number of goals per game by month. The ulterior motive for this, apart from showing that actually December isn't an anomaly, it's just there are lots of fixtures then, is to show how two DataSets can be joined.
+
+
 ### FootyTableSourceConsumer
 Uses the TableAPI to create and query datasets. At present this only works via the IDE rather than executing on the cluster as the TableAPI is not shipped with the binary distro.
 
-### ResultSocketConsumer
-Only partly implemented.
 
 ## To Do
-- Basic stats on a team
-- Date-based stats, e.g.
-  - Goals per week / month
-  - Goals per day of week
-  - etc.   
+~~- Date-based stats, e.g.~~
+  ~~- Goals per week / month~~
+  ~~- Goals per day of week~~
+  ~~- etc.~~   
 -  What-if scenarios where results are altered (e.g. ABU weighting)
 
 ## Findings
@@ -60,3 +61,12 @@ This is then written to a CsvTableSink but because of how the TableAPI works thi
 If the results are filtered only then the output to this Sink can be append only as there are no results that need revision.
 
 Instead though, if the results are grouped (e.g.) and then a count made of the number of wins, losses, draws then this isn't an append-only action as the counts are being updated as the stream encounters new data matching the filter. This means that the table can't be written to a CsvSink (i.e. an append only sink)
+
+### Can't join if there are different execution contexts
+(see GoalsByMonthByGame)
+This originally reused the GoalsByMonth dataset and then sought to create a new dataset of games per month and join them to get the resulting goals per month per game.
+However, is failed with an IllegalArgumentException as below:
+````
+java.lang.IllegalArgumentException: The two inputs have different execution contexts.
+````
+Going forward, could share the execution environment rather than what the class does (which is repeat the dataset query for goals per month)

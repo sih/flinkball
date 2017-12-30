@@ -3,6 +3,7 @@ package eu.waldonia.labs.flinkball;
 import java.util.Objects;
 
 /**
+ * A lowest common denominator object holding attributes found in all of the input CSV result files.
  * @author sih
  */
 public class FootyResult {

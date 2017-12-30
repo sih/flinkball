@@ -5,6 +5,7 @@ import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.tuple.Tuple2;
 
 /**
+ * Demonstrates a simple aggregation
  * @author sih
  */
 public class GoalsByMonth {
@@ -16,7 +17,7 @@ public class GoalsByMonth {
         normalizer = new ResultFileNormalizer();
     }
 
-    public void goals() throws Exception {
+    public DataSet<Tuple2<Integer,Integer>> goals() throws Exception {
 
         DataSet<FootyResult> results = normalizer.normalize();
 
@@ -32,18 +33,18 @@ public class GoalsByMonth {
                         .groupBy(0)
                         .sum(1)
                 ;
-        goalsByMonth.print();
+
+        return goalsByMonth;
 
     }
 
     public static void main(String[] args) {
         try {
             GoalsByMonth gols = new GoalsByMonth();
-            gols.goals();
+            DataSet<Tuple2<Integer,Integer>> goalsPerMonth = gols.goals();
+            goalsPerMonth.print();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 }

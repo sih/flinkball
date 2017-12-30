@@ -5,6 +5,7 @@ import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 
 /**
+ * Shows use of a map function to cleanse (normalize in this case) the data
  * @author sih
  */
 public class ResultFileNormalizer {
