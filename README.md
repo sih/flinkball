@@ -6,6 +6,13 @@ This uses the [Teleprinter project on this repo](https://github.com/sih/teleprin
 ## Running the consumers
 See above for the dependency on the Teleprinter project. Most of the examples in this demo rely on the full set of results being created. Read the teleprinter project to find out how to do this.
 
+1. Clone and build the teleprinter project ````https://github.com/sih/teleprinter.git ````
+2. Run the SimFilePublisher class to generate a single results file at ````<teleprinter project dir>/output/results.csv````. This file is used to drive most of the examples
+3. Change the absolute paths for the static file locations in  ````ResultFileNormalizer```` and ````FootyTableSourceConsumer```` to match your location
+4. Take a look at the implementation examples below and run each
+
+These will all run in the IDE and all of them will run on a Flink cluster apart from the TableAPI examples (mainly because the TableAPI isn't shipped with the binary distro and I haven't got an uber-jar working yet)
+
 ## What's implemented
 ### FootyResult
 This is a normalized result object that holds the common fields from all of the data files.
