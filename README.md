@@ -33,6 +33,18 @@ Outputs a tuple of month and the goals scored in that month, i.e.
 
 ### GoalsByMonthByGame
 Refinement of the above to take in to account the number of games per month and hence work out the number of goals per game by month. The ulterior motive for this, apart from showing that actually December isn't an anomaly, it's just there are lots of fixtures then, is to show how two DataSets can be joined.
+````
+(3,2.57)
+(1,2.53)
+(5,2.81)
+(11,2.64)
+(12,2.61)
+(2,2.59)
+(4,2.61)
+(8,2.53)
+(9,2.7)
+(10,2.64)
+````
 
 
 ### FootyTableSourceConsumer
@@ -41,9 +53,13 @@ Uses the TableAPI to create and query datasets. At present this only works via t
 
 ## To Do
 ~~- Date-based stats, e.g.~~
+
   ~~- Goals per week / month~~
+  
   ~~- Goals per day of week~~
-  ~~- etc.~~   
+  
+  ~~- etc.~~
+     
 -  What-if scenarios where results are altered (e.g. ABU weighting)
 
 ## Findings
@@ -52,7 +68,8 @@ Uses the TableAPI to create and query datasets. At present this only works via t
 This means that we need to add in the relevant files (otherwise we get NoClassdefFound errors when we try to run on the cluster).
 
 This [out of date documentation](https://ci.apache.org/projects/flink/flink-docs-release-1.1/apis/cluster_execution.html#linking-with-modules-not-contained-in-the-binary-distribution) describes how to incude the relevant classes by unpacking in the maven task and creating an uber jar. However, still getting errors - now in codehaus classes. This is currently left as a todo.
-### Understand the Table API
+
+### The TableAPI writes to append-only sinks which will limit operations
 (see FootyTableSourceConsumer)
 The results csv is read in to a Table via a CsvSource. This is then further filtered (a WHERE clause applied to the table SQL) in order to return results for a particular team.
 
